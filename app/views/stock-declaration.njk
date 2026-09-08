@@ -1,0 +1,93 @@
+{% extends "layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitleContent %}
+  {% if errorList and errorList.length > 0 %}Error: {% endif %}Stock declaration
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/seed-potato-variety">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% include "partials/error-summary.njk" %}
+
+      <h1 class="govuk-heading-xl">Stock declaration</h1>
+
+      <p class="govuk-body">
+        Tell us the quantity of seed potatoes covered by this declaration
+        and the date the declaration was made. This is a fictional demo --
+        do not enter any real stock or business details.
+      </p>
+
+      <form method="post" action="/stock-declaration" novalidate>
+
+        {{ govukInput({
+          label: {
+            text: "Quantity of seed potatoes (tonnes)"
+          },
+          hint: {
+            text: "Enter a whole number of tonnes, for example 12."
+          },
+          id: "quantityOfSeedPotatoes",
+          name: "quantityOfSeedPotatoes",
+          value: values.quantityOfSeedPotatoes,
+          classes: "govuk-input--width-5",
+          inputmode: "numeric",
+          errorMessage: errorMap.quantityOfSeedPotatoes
+        }) }}
+
+        {{ govukDateInput({
+          id: "stockDeclarationDate",
+          namePrefix: "stockDeclarationDate",
+          fieldset: {
+            legend: {
+              text: "Date of stock declaration",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          hint: {
+            text: "For example, 27 3 2024. This cannot be a date in the future."
+          },
+          errorMessage: errorMap.stockDeclarationDate,
+          items: [
+            {
+              name: "day",
+              classes: "govuk-input--width-2" + (" govuk-input--error" if errorMap.stockDeclarationDate else ""),
+              value: values["stockDeclarationDate-day"]
+            },
+            {
+              name: "month",
+              classes: "govuk-input--width-2" + (" govuk-input--error" if errorMap.stockDeclarationDate else ""),
+              value: values["stockDeclarationDate-month"]
+            },
+            {
+              name: "year",
+              classes: "govuk-input--width-4" + (" govuk-input--error" if errorMap.stockDeclarationDate else ""),
+              value: values["stockDeclarationDate-year"]
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body govuk-!-margin-top-6">
+        DEMO -- not a live service. Not affiliated with, endorsed by, or
+        representative of Defra or HM Government. Any details you enter
+        here are fictional/mock data and are never stored or sent anywhere.
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

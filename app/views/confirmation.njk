@@ -1,0 +1,49 @@
+{% extends "layout.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% block pageTitleContent %}Application submitted{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {{ govukPanel({
+        titleText: "Application submitted",
+        html: "Your mocked reference number<br><strong>" + referenceNumber + "</strong>"
+      }) }}
+
+      <h2 class="govuk-heading-m">What happens next</h2>
+
+      <p class="govuk-body">
+        In a real service, we would now review your application and be in
+        touch. In this demo, nothing has actually happened: no email has
+        been sent, no case has been created, and no data has left this
+        local demo environment. The reference number above was generated
+        entirely on this local server, purely so this page looks like a
+        real GOV.UK confirmation page -- it does not correspond to any
+        real application, and cannot be looked up anywhere.
+      </p>
+
+      <p class="govuk-body">
+        Your answers from this journey have now been cleared from this
+        demo's temporary, in-memory session. Refreshing this page, or
+        starting the journey again, begins with a completely empty set of
+        fictional answers.
+      </p>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="/">Start another demo application</a>
+      </p>
+
+      <p class="govuk-body govuk-!-margin-top-6">
+        DEMO -- not a live service. Not affiliated with, endorsed by, or
+        representative of Defra or HM Government. This is a mocked
+        confirmation only -- no real application was submitted, stored, or
+        sent anywhere -- this page only demonstrates what a GOV.UK
+        confirmation page for a converted paper form would look like.
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

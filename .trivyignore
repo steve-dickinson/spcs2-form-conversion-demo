@@ -1,0 +1,9 @@
+# Same util-linux base-image CVEs as python-uv's Dockerfile (see its
+# .trivyignore comment) -- node:20-slim is Debian-based too, same
+# unfixed-upstream situation applies. Added proactively, not independently
+# reproduced against a node-cdp build -- if node:20-slim's util-linux
+# turns out to be a different/patched version, trivy simply won't have
+# anything to match these entries against and this file is a no-op.
+CVE-2026-78408
+CVE-2026-78409
+CVE-2026-78410

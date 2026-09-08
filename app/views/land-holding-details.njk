@@ -1,0 +1,105 @@
+{% extends "layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitleContent %}
+  {% if errorList and errorList.length > 0 %}Error: {% endif %}Land parcel and holding details
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/applicant-details">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% include "partials/error-summary.njk" %}
+
+      <h1 class="govuk-heading-xl">Land parcel and holding details</h1>
+
+      <p class="govuk-body">
+        Tell us about the land holding this application relates to. This
+        is a fictional demo -- do not enter any real address or land
+        details.
+      </p>
+
+      <form method="post" action="/land-holding-details" novalidate>
+
+        {{ govukInput({
+          label: {
+            text: "Name of the land holding"
+          },
+          id: "holdingName",
+          name: "holdingName",
+          value: values.holdingName,
+          errorMessage: errorMap.holdingName
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Address line 1"
+          },
+          id: "addressLine1",
+          name: "addressLine1",
+          value: values.addressLine1,
+          autocomplete: "address-line1",
+          errorMessage: errorMap.addressLine1
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Town or city"
+          },
+          id: "townOrCity",
+          name: "townOrCity",
+          value: values.townOrCity,
+          autocomplete: "address-level2",
+          errorMessage: errorMap.townOrCity
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Postcode"
+          },
+          hint: {
+            text: "Enter a full UK postcode, like SW1A 1AA."
+          },
+          id: "postcode",
+          name: "postcode",
+          value: values.postcode,
+          classes: "govuk-input--width-10",
+          autocomplete: "postal-code",
+          spellcheck: false,
+          errorMessage: errorMap.postcode
+        }) }}
+
+        {{ govukInput({
+          label: {
+            text: "Land parcel reference number"
+          },
+          hint: {
+            text: "You can find this on your land holding paperwork."
+          },
+          id: "parcelReference",
+          name: "parcelReference",
+          value: values.parcelReference,
+          errorMessage: errorMap.parcelReference
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body govuk-!-margin-top-6">
+        DEMO -- not a live service. Not affiliated with, endorsed by, or
+        representative of Defra or HM Government. Any details you enter
+        here are fictional/mock data and are never stored or sent anywhere.
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

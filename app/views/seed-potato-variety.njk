@@ -1,0 +1,115 @@
+{% extends "layout.njk" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitleContent %}
+  {% if errorList and errorList.length > 0 %}Error: {% endif %}Seed potato variety and class
+{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/land-holding-details">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      {% include "partials/error-summary.njk" %}
+
+      <h1 class="govuk-heading-xl">Seed potato variety and class</h1>
+
+      <p class="govuk-body">
+        Tell us the seed potato class you're applying for classification
+        under, and whether the variety is on the classified variety list.
+        This is a fictional demo -- do not enter any real variety or
+        classification details.
+      </p>
+
+      <form method="post" action="/seed-potato-variety" novalidate>
+
+        {{ govukRadios({
+          idPrefix: "potatoClass",
+          name: "potatoClass",
+          fieldset: {
+            legend: {
+              text: "Which seed potato class are you applying for?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          errorMessage: errorMap.potatoClass,
+          items: [
+            {
+              value: "pre-basic",
+              text: "Pre-basic",
+              checked: values.potatoClass == "pre-basic"
+            },
+            {
+              value: "basic",
+              text: "Basic",
+              checked: values.potatoClass == "basic"
+            },
+            {
+              value: "certified",
+              text: "Certified",
+              checked: values.potatoClass == "certified"
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          idPrefix: "varietyOnList",
+          name: "varietyOnList",
+          fieldset: {
+            legend: {
+              text: "Is the variety on the classified variety list?",
+              isPageHeading: false,
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          hint: {
+            text: "If the variety is not on the classified variety list, you'll need to tell us its name."
+          },
+          errorMessage: errorMap.varietyOnList,
+          items: [
+            {
+              value: "yes",
+              text: "Yes",
+              checked: values.varietyOnList == "yes"
+            },
+            {
+              value: "no",
+              text: "No",
+              checked: values.varietyOnList == "no",
+              conditional: {
+                html: govukInput({
+                  label: {
+                    text: "Enter the name of the seed potato variety"
+                  },
+                  id: "varietyOtherDetails",
+                  name: "varietyOtherDetails",
+                  value: values.varietyOtherDetails,
+                  errorMessage: errorMap.varietyOtherDetails
+                })
+              }
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+      <p class="govuk-body govuk-!-margin-top-6">
+        DEMO -- not a live service. Not affiliated with, endorsed by, or
+        representative of Defra or HM Government. Any details you enter
+        here are fictional/mock data and are never stored or sent anywhere.
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

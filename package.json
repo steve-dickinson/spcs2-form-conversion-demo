@@ -1,0 +1,33 @@
+{
+  "name": "spcs2-demo-service",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo conversion of the legacy SPCS2 paper form into a multi-page GOV.UK Design System journey. Personal project by the repo owner. Not affiliated with, endorsed by, or representative of Defra or HM Government. DEMO -- not a live service: no real data is ever collected, stored, or submitted.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --runInBand"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "govuk-frontend": "^5.4.1",
+    "nunjucks": "^3.2.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "overrides": {
+    "tar": ">=7.5.21"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/test/**/*.test.js"
+    ]
+  }
+}

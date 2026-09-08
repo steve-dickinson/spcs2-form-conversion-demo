@@ -1,0 +1,52 @@
+{% extends "layout.njk" %}
+
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block pageTitleContent %}Check your answers{% endblock %}
+
+{% block beforeContent %}
+  <a class="govuk-back-link" href="/stock-declaration">Back</a>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">Check your answers</h1>
+
+      <p class="govuk-body">
+        Check the fictional/mock answers below before continuing. This is
+        a demo -- nothing you submit is sent to Defra, APHA, or any other
+        real system.
+      </p>
+
+      {% for section in sections %}
+        <h2 class="govuk-heading-m">{{ section.heading }}</h2>
+
+        {{ govukSummaryList({
+          rows: section.rows
+        }) }}
+      {% endfor %}
+
+      {{ govukWarningText({
+        text: "This is a fictional demo. Selecting \"Confirm and send\" below does not send anything anywhere -- it only generates a mocked reference number, entirely on this local server.",
+        iconFallbackText: "Warning"
+      }) }}
+
+      <form method="post" action="/check-your-answers" novalidate>
+        {{ govukButton({
+          text: "Confirm and send"
+        }) }}
+      </form>
+
+      <p class="govuk-body govuk-!-margin-top-6">
+        DEMO -- not a live service. Not affiliated with, endorsed by, or
+        representative of Defra or HM Government. Any details you entered
+        here are fictional/mock data and are never stored or sent anywhere.
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

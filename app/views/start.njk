@@ -1,0 +1,73 @@
+{% extends "layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block pageTitleContent %}Apply for seed potato classification (SPCS2 demo){% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">Apply for seed potato classification</h1>
+
+      <p class="govuk-body">
+        This is a demonstration of converting a legacy paper form -- the
+        Seed Potato Classification Scheme (SPCS2) -- into a digital,
+        multi-page GOV.UK-style journey. It shows the applicant/business
+        details, land holding details, seed potato variety and class,
+        stock declaration, check-your-answers, and confirmation steps a
+        real service of this shape would need.
+      </p>
+
+      {{ govukWarningText({
+        text: "This is a fictional demo. No real applications, data or submissions are collected, stored, or sent to Defra, APHA, or any other real system. Everything you enter here is discarded once you finish or leave the journey.",
+        iconFallbackText: "Warning"
+      }) }}
+
+      <h2 class="govuk-heading-m">Try it with a fictional persona</h2>
+
+      <p class="govuk-body">
+        If you'd rather not make up your own answers, you can use this
+        fictional persona to complete the demo journey:
+      </p>
+
+      <div class="govuk-inset-text">
+        <p class="govuk-body govuk-!-margin-bottom-1">
+          <strong>{{ persona.name }}</strong><br>
+          {{ persona.businessName }}
+        </p>
+        <p class="govuk-body govuk-!-margin-bottom-0">
+          {{ persona.description }}
+        </p>
+      </div>
+
+      <h2 class="govuk-heading-m">Before you start</h2>
+
+      <p class="govuk-body">You will be asked for:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>applicant and business details</li>
+        <li>land parcel and holding details, including a postcode</li>
+        <li>the seed potato variety and class you're applying for</li>
+        <li>a stock declaration, including a date</li>
+      </ul>
+
+      <p class="govuk-body">
+        It should take around 5 minutes to complete this demo.
+      </p>
+
+      {{ govukButton({
+        text: "Start now",
+        href: "/applicant-details",
+        isStartButton: true
+      }) }}
+
+      <p class="govuk-body">
+        This is a personal project by the repo owner, built to demonstrate
+        a repeatable paper-to-digital form conversion pattern. It is not
+        affiliated with, endorsed by, or representative of Defra or HM
+        Government, and does not use any real Crown or GOV.UK branding
+        beyond the standard open-source GOV.UK Frontend component library.
+      </p>
+    </div>
+  </div>
+{% endblock %}

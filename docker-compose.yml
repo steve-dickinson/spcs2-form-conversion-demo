@@ -1,0 +1,15 @@
+# Static scaffold (docs/phase3-design.md §9) -- copied verbatim into every
+# node-cdp demo repo, never regenerated per-run. Same reasoning as
+# python-uv's docker-compose.yml (see its comment) -- added after real
+# testing (5 Sep 2026) found no template ever provided one, even though
+# generated READMEs consistently describe `docker compose up` as the run
+# command.
+#
+# Port 8000 is fixed, matching this template's Dockerfile (EXPOSE 8000)
+# and stages/code.py's prompt instruction that the entrypoint must bind
+# to that exact port.
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"

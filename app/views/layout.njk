@@ -1,0 +1,78 @@
+{% extends "govuk/template.njk" %}
+
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
+{#
+  Base GOV.UK Design System page template for the whole SPCS2 conversion
+  demo. Every page template in app/views/*.njk (start.njk,
+  applicant-details.njk, land-holding-details.njk,
+  seed-potato-variety.njk, stock-declaration.njk,
+  check-your-answers.njk, confirmation.njk) extends this file and
+  overrides the `pageTitle`, `beforeContent` (optional) and `content`
+  blocks below -- it never needs to repeat the header, footer, or the
+  persistent DEMO banner itself.
+
+  This demo is a personal project by the repo owner. It is not
+  affiliated with, endorsed by, or representative of Defra or HM
+  Government, and uses only the standard open-source GOV.UK Frontend
+  component library -- no real Crown or GOV.UK service branding beyond
+  that library is used anywhere in this repo.
+#}
+
+{% block pageTitle %}{% block pageTitleContent %}SPCS2 demo service{% endblock %} - GOV.UK{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="/govuk/govuk-frontend.min.css">
+{% endblock %}
+
+{#
+  The persistent "DEMO -- not a live service" banner (see
+  app/views/partials/demo-banner.njk) is included here, in `bodyStart`,
+  which govuk/template.njk renders immediately after the opening <body>
+  tag and before the skip link, header, or any page content. Because
+  every page template in this repo extends this layout, and this block
+  is never overridden by any child template, the banner is present and
+  visible at the very top of every single page in the journey --
+  including the start page and the confirmation page -- satisfying this
+  demo's "persistent, unmissable" requirement without every controller
+  or page template having to remember to include it individually.
+#}
+{% block bodyStart %}
+  {% include "partials/demo-banner.njk" %}
+{% endblock %}
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "/",
+    serviceName: "SPCS2 demo service (DEMO -- not a live service)",
+    serviceUrl: "/"
+  }) }}
+{% endblock %}
+
+{#
+  Left empty by default; individual page templates may override this to
+  add a GOV.UK back link above their own content, without needing to
+  know about or duplicate anything else in this layout.
+#}
+{% block beforeContent %}{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+  {{ govukFooter({
+    meta: {
+      text: "Personal project by the repo owner. Not affiliated with, endorsed by, or representative of Defra or HM Government. This is a DEMO service only -- no real applications are collected, stored, or submitted."
+    }
+  }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  {% block scripts %}
+    <script type="module" src="/govuk/govuk-frontend.min.js"></script>
+    <script type="module">
+      import { initAll } from '/govuk/govuk-frontend.min.js'
+      initAll()
+    </script>
+  {% endblock %}
+{% endblock %}

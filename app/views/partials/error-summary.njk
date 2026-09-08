@@ -1,0 +1,38 @@
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{#
+  Reusable GDS error summary component partial.
+
+  Included near the top of every page template that can be POSTed with
+  invalid answers (applicant-details.njk, land-holding-details.njk,
+  seed-potato-variety.njk, stock-declaration.njk), immediately after
+  the page's own {% block beforeContent %}/heading, so it renders
+  above the form itself -- matching GDS guidance that the error summary
+  must appear at the top of the page, before any other content.
+
+  Expects an `errorList` variable in scope, built by
+  app/validation/schemas.js's `validateAnswers` function and passed
+  straight through by each controller's GET/POST handler:
+
+    errorList: Array<{ text: string, href: string }>
+
+  where `href` is already a full URL fragment (e.g. "#postcode") ready
+  to drop straight into the summary's link list, and `text` is the
+  human-readable error message shown both in the summary and (via each
+  page template's own use of `errorMap`) inline next to the offending
+  field.
+
+  Renders nothing at all when `errorList` is absent or empty -- so a
+  normal GET request (which always passes an empty errorList from every
+  controller above) never shows an empty/empty-looking error summary.
+#}
+
+{% if errorList and errorList.length > 0 %}
+  {{ govukErrorSummary({
+    titleText: "There is a problem",
+    errorList: errorList,
+    attributes: {
+      "data-module": "govuk-error-summary"
+    }
+  }) }}
+{% endif %}
